@@ -7,24 +7,34 @@
 #include "corne.dtsi"
 
 &default_transform {
-	col-offset = <6>;
+    col-offset = <6>;
 };
 
 &kscan0 {
+    // Row pins for nice!nano (converted from pro_micro 4,5,6,7)
+    row-gpios
+        = <&gpio0 6  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // pro_micro 4 -> P0.06
+        , <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // pro_micro 5 -> P0.08
+        , <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // pro_micro 6 -> P0.17
+        , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // pro_micro 7 -> P0.20
+        ;
+    
+    // Column pins for nice!nano RIGHT side (converted from pro_micro 14,15,18,19,20,21)
     col-gpios
-        = <&pro_micro 14  GPIO_ACTIVE_HIGH>
-        , <&pro_micro 15  GPIO_ACTIVE_HIGH>
-        , <&pro_micro 18  GPIO_ACTIVE_HIGH>
-        , <&pro_micro 19  GPIO_ACTIVE_HIGH>
-        , <&pro_micro 20  GPIO_ACTIVE_HIGH>
-        , <&pro_micro 21  GPIO_ACTIVE_HIGH>
+        = <&gpio1 6  GPIO_ACTIVE_HIGH>   // pro_micro 14 -> P1.06
+        , <&gpio1 4  GPIO_ACTIVE_HIGH>   // pro_micro 15 -> P1.04
+        , <&gpio0 11 GPIO_ACTIVE_HIGH>   // pro_micro 18 -> P0.11
+        , <&gpio1 0  GPIO_ACTIVE_HIGH>   // pro_micro 19 -> P1.00
+        , <&gpio0 24 GPIO_ACTIVE_HIGH>   // pro_micro 20 -> P0.24
+        , <&gpio0 22 GPIO_ACTIVE_HIGH>   // pro_micro 21 -> P0.22
         ;
 };
+
 / {
     chosen {
       zmk,battery = &vbatt;
     };
-
+    
     vbatt: vbatt {
         compatible = "zmk,battery-nrf-vddh";
     };
